@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "EventAnnotationUtil": {
+      "commandName": "Project",
+      //"commandLineArgs": "add -r test -t \"2021-04-24 10:10:50 +03:00\" -c \"test event\""
+      "commandLineArgs": "remove -r test"
+      //"commandLineArgs": "remove -r test -s \"2021-04-22 10:10:50 +03:00\"  -e \"2021-04-22 15:10:50 +03:00\""
+    }
+  }
+}
