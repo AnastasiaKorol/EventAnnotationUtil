@@ -7,13 +7,13 @@ namespace EventAnnotationUtil
 	[Verb("remove", HelpText = "Remove event annotations")]
 	class RemoveOptions
 	{
-		[Option('r', "runid", Required = true, HelpText = "Test run id")]
-		public string RunId { get; set; }
+		[Option("environment", Required = true, HelpText = "Test environment name")]
+		public string Cluster { get; set; }
 
-		[Option('s', "start", Required = false, HelpText = "Start time")]
-		public DateTime? StartTime { get; set; }
+		[Option("start", Required = true, HelpText = "Start time")]
+		public DateTime StartTime { get; set; }
 
-		[Option('e', "end", Required = false, HelpText = "End time")]
-		public DateTime? EndTime { get; set; }
+		[Option("end", Required = true, HelpText = "End time")]
+		public DateTime EndTime { get; set; }
 	}
 }

@@ -42,48 +42,25 @@ namespace EventAnnotationUtil.Elasticsearch
 			_logger.Info($"Added {data}");
 		}
 
-		public void Write(string runId, DateTime timestamp, string comment)
+		public void Write(string runId, string cluster, EventType type, DateTime timestamp, string comment)
 		{
 			Write(new Event
 			{
 				RunId = runId,
+				Cluster = cluster,
+				Type = type,
 				Comment = comment,
 				Timestamp = timestamp
 			});
 		}
 
-		public void AddTestLimits(string runId)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void Delete(string runId)
-		{
-			var response = _client.DeleteByQuery<Event>(q => q
-				.Query(rq => rq.Match(m => m.Field(f => f.RunId).Query(runId))
-				)
-			);
-
-			if (!response.IsValid)
-			{
-				_logger.Error("Failed to delete data from elastic index {0}: {1}", Index, response.DebugInformation);
-
-				if (response.ServerError != null)
-				{
-					_logger.Error("Error: {0}", response.ServerError.Error);
-				}
-			}
-
-			_logger.Info($"Deleted all events for RunId:{runId}");
-		}
-		
-		public void Delete(string runId, DateTime start, DateTime end)
+		public void Delete(string cluster, DateTime start, DateTime end)
 		{
 			Event t;
 			var queryForm = new TermQuery
 			{
-				Field = nameof(t.RunId),
-				Value = runId
+				Field = nameof(t.Cluster),
+				Value = cluster
 			};
 
 			var rangeQuery = new DateRangeQuery
@@ -110,7 +87,7 @@ namespace EventAnnotationUtil.Elasticsearch
 				}
 			}
 
-			_logger.Info($"Deleted all events for RunId:{runId} from {start} to {end}");
+			_logger.Info($"Deleted all events for Cluster:{cluster} from {start} to {end}");
 		}
 
 

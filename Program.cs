@@ -39,9 +39,7 @@ namespace EventAnnotationUtil
 		{
 			var es = new ElasticsearchWriter(uri);
 
-			if (!options.Timestamp.HasValue) es.AddTestLimits(options.RunId);
-			else es.Write(options.RunId, options.Timestamp.Value, options.Comment);
-
+			es.Write(options.RunId, options.Cluster, options.Type, options.Timestamp, options.Comment);
 
 			return 0;
 		}
@@ -50,8 +48,7 @@ namespace EventAnnotationUtil
 		{
 			var es = new ElasticsearchWriter(uri);
 
-			if (!options.StartTime.HasValue) es.Delete(options.RunId);
-			else es.Delete(options.RunId, options.StartTime.Value, options.EndTime.Value);
+			es.Delete(options.Cluster, options.StartTime, options.EndTime);
 
 			return 0;
 		}
